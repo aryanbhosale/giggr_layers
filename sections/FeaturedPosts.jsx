@@ -28,12 +28,22 @@ const FeaturedPosts = ({ categories, slug }) => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
 
+  // useEffect(() => {
+  //   getSimilarPosts(["pursuing-excellence"], "pursuing-excellence").then((result) => {
+  //     setFeaturedPosts(result);
+  //     setDataLoaded(true);
+  //   });
+  // }, [categories, slug]);
+  // console.log(featuredPosts)
+
   useEffect(() => {
     getSimilarPosts(categories, slug).then((result) => {
       setFeaturedPosts(result);
       setDataLoaded(true);
     });
   }, [categories, slug]);
+
+ 
 
   const customLeftArrow = (
     <div className="absolute arrow-btn left-0 text-center py-3 cursor-pointer bg-purple-800 hover:bg-indigo-500 rounded-full">
@@ -52,12 +62,12 @@ const FeaturedPosts = ({ categories, slug }) => {
   );
 
   return (
-    <div className="sm:px-8 px-auto sm:m-8">
-      <div className='flex flex-col px-8 sm:justify-center justify-center'>
+    <div className=" sm:px-8 px-auto sm:m-8">
+      <Carousel containerClass="justify-center align-center items-center" ssr={true} infinite responsive={responsive}>
         {dataLoaded && featuredPosts.map((post, index) => (
           <FeaturedPostCard key={index} post={post} />
         ))}
-      </div>
+      </Carousel>
     </div>
   );
 };
